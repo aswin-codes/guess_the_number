@@ -48,27 +48,13 @@ const Card = () => {
   };
 
   const generateHintText = (generated, guessed, currentChances) => {
-    const diff =
-      generated - guessed > 0 ? generated - guessed : guessed - generated;
     if (guessed == generated) {
       const x = 5 - currentChances + 1;
       return `That's correct. It took you ${x}, to correctly guess the number.`;
     } else if (guessed > generated) {
-      if (diff > 25) {
-        return `That's too high`;
-      } else if (diff > 10) {
-        return `That's high`;
-      } else {
-        return `That's close`;
-      }
+      return  `That's high.`
     } else {
-      if (diff > 25) {
-        return `That's too low`;
-      } else if (diff > 10) {
-        return `That's low`;
-      } else {
-        return `That's close`;
-      }
+      return "That's low."
     }
   };
 
