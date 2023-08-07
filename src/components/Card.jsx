@@ -50,7 +50,7 @@ const Card = () => {
   const generateHintText = (generated, guessed, currentChances) => {
     if (guessed == generated) {
       const x = 5 - currentChances + 1;
-      return `That's correct. It took you ${x} ${x==1 ? 'turn' : 'tu'}, to correctly guess the number.`;
+      return `That's correct. It took you ${x} ${x==1 ? 'turn' : 'turns'}, to correctly guess the number.`;
     } else if (guessed > generated) {
       return  `That's high.`
     } else {
