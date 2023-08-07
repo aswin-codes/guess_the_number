@@ -24,7 +24,7 @@ const Card = () => {
   const generateRandomNumber = () => {
     const n = parseInt(Math.random() * 100);
     setNumber(n);
-    console.log(n);
+    //console.log(n);
   };
 
   const check = () => {
@@ -50,7 +50,7 @@ const Card = () => {
   const generateHintText = (generated, guessed, currentChances) => {
     if (guessed == generated) {
       const x = 5 - currentChances + 1;
-      return `That's correct. It took you ${x}, to correctly guess the number.`;
+      return `That's correct. It took you ${x} ${x==1 ? 'turn' : 'tu'}, to correctly guess the number.`;
     } else if (guessed > generated) {
       return  `That's high.`
     } else {
