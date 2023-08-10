@@ -58,6 +58,12 @@ const Card = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter'){
+      check();
+    }
+  }
+
   return (
     <div className="bg-light p-5 mb-20 rounded-xl shadow-custom flex flex-col items-center">
       <h1 className="text-dark font-nunito font-bold text-2xl mb-4">
@@ -95,6 +101,7 @@ const Card = () => {
                 onChange={(e) => setGuess(e.target.value)}
                 type="number"
                 placeholder="Enter"
+                onKeyDown={handleKeyDown}
                 className="border border-dark rounded text-md px-2 py-2"
               />
               <button
