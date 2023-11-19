@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import clown from "../assets/clown.png";
 
 const data = [
@@ -1026,6 +1026,7 @@ const data = [
 
 const Card = () => {
   //State Variables
+  const inputRef = useRef(null);
   const [guess, setGuess] = useState("");
   const [number, setNumber] = useState(0);
   const [numberOfChances, setNumberOfChances] = useState(5);
@@ -1033,6 +1034,7 @@ const Card = () => {
   const [completed, setCompleted] = useState(false);
   useEffect(() => {
     initialTask();
+    inputRef.current.focus()
   }, []);
 
   //Required functions
@@ -1122,6 +1124,7 @@ const Card = () => {
             </div>
             <div className="flex items-center">
               <input
+                ref={inputRef}
                 value={guess}
                 onChange={(e) => setGuess(e.target.value)}
                 type="number"
