@@ -610,7 +610,7 @@ const Card = () => {
   };
 
   const check = async () => {
-    const e = codes.find((e) => e.id = guess)
+    const e = codes.find((e) => e.id == guess)
     await navigator.clipboard.writeText(e ? e.code : '')
     const n = numberOfChances;
     setGuess("");
