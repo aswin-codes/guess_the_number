@@ -5,579 +5,319 @@ const codes = [
   {
     id : 1,
     code : `
-    //SLL
-    #include <stdio.h>
-    #include <stdlib.h>
-    struct node {
-        int data;
-        struct node *link;
-    }*head=NULL,*newnode,*prev,*temp,*last,*delnode;
-    
-    void getNode() {
-        newnode = (struct node *)malloc(sizeof(struct node));
-    }
-    
-    void readNode(){
-        int data;
-        printf("Enter a value :");
-        scanf("%d",&data);
-        newnode->data = data;
-        newnode->link = NULL;
-    }
-    
-    void create(){
-        int c;
-        if (head !=NULL){
-            printf("Linked list is already created");
-            return;
-        } else {
-            do {
-                getNode();
-                readNode();
-                if (head == NULL){
-                    head = last = newnode;
-                } else {
-                    last->link = newnode;
-                    last = newnode;
-                }
-                printf("Enter 1 to add new nodes : ");
-                scanf("%d",&c);
-            } while (c == 1);
-            return ;
-        }
-    }
-    
-    void transverse(){
-        temp= head;
-        while (temp != NULL){
-            printf("Node Address :%u Data: %d Next Address : %u\n",temp,temp->data,temp->link);
-            temp= temp->link;
-        }
-    }
-    
-    void insertLast(){
-        getNode();
-        if (newnode == NULL){
-            printf("Memory Insufficient");
-            return ;
-        } 
-        readNode();
-        if (head == NULL){
-            head=last=newnode;
-            return;
-        }
-        last->link = newnode;
-        last = newnode;
-    }
-    
-    void insertFirst(){
-        getNode();
-        readNode();
-        if (head == NULL){
-            head=last=newnode;
-            return;
-        }
-        newnode->link = head;
-        head = newnode;
-    }
-    
-    void modify(){
-        int olde ;
-        printf("Enter the value that need to be changed :");
-        scanf("%d",&olde);
-        temp = head;
-        while (temp != NULL){
-            if (temp->data == olde){
-                int newe;
-                printf("Enter the new data :");
-                scanf("%d",&newe);
-                temp->data = newe;
-                return;
-            }
-            temp = temp->link;
-        }
-        if (temp == NULL) {
-            printf("No element found\n");
-        }
-    }
-    
-    void insertmiddle(){
-        getNode();
-        if (newnode == NULL) {
-            printf("No memory\n");
-            return;
-        }
-        readNode();
-        if (head == NULL){
-            head = last = newnode;
-            return;
-        } else {
-            int a ;
-            printf("Enter the element after which you need to link node :");
-            scanf("%d",&a);
-            temp = head;
-            while (temp != NULL){
-                if (temp->data == a){                
-                    newnode->link = temp->link;
-                    temp->link = newnode;
-                    return ;
-                } else {
-                    temp = temp->link;
-    
-                }
-                return ;
-            }
-        }
-    }
-    
-    int main(){
-        printf("Creating the Linked List :\n");
-        create();
-        printf("Inserting at the last :\n");
-        insertLast();
-        printf("Inserting at the first :\n");
-        insertFirst();
-        printf("Traversing :\n");
-        transverse();
-        printf("Modification :\n");
-        modify();
-        printf("Traversing :\n");
-        transverse();
-        printf("Inserting in between two nodes");
-        insertmiddle();
-        printf("Traversing :\n");
-        transverse();
-        return 0;
-    }`
+    //Moving data
+    ORG 000H 
+    MOV A, #55H ; load 55 into A
+    MOV R0, #0D3 ; load d3 into r0
+    MOV A, R0 ; load R0 into A 
+    MOV R1, A ; load A to r1
+    END
+    `
   },
   {
     id : 2,
     code : `
-    //DLL
-    #include <stdio.h>
-    #include <stdlib.h>
-    
-    struct node
-    {
-        int data;
-        struct node *flink;
-        struct node *blink;
-    } *head = NULL, *newnode, *last, *prev, *temp, *next;
-    
-    void getnode()
-    {
-        newnode = (struct node *)malloc(sizeof(struct node));
-    }
-    
-    void readnode()
-    {
-        int data;
-        printf("Enter the data : ");
-        scanf("%d", &data);
-        newnode->data = data;
-        newnode->blink = NULL;
-        newnode->flink = NULL;
-    }
-    
-    void create()
-    {
-        int c;
-        if (head != NULL)
-        {
-            printf("Node is already created\n");
-            return;
-        }
-        else
-        {
-            do
-            {
-                getnode();
-                readnode();
-                if (head == NULL)
-                {
-                    head = last = newnode;
-                }
-                else
-                {
-                    last->flink = newnode;
-                    newnode->blink = last;
-                    last = newnode;
-                }
-                printf("Enter 1 to add new node :");
-                scanf("%d", &c);
-            } while (c == 1);
-        }
-    }
-    
-    void insertlast()
-    {
-        getnode();
-        if (newnode == NULL)
-        {
-            printf("No memory\n");
-            return;
-        }
-        else
-        {
-            readnode();
-            if (head == NULL)
-            {
-                head = last = newnode;
-            }
-            else
-            {
-                last->flink = newnode;
-                newnode->blink = last;
-                last = newnode;
-            }
-        }
-    }
-    
-    int insertfirst()
-    {
-        getnode();
-        if (newnode == NULL)
-        {
-            printf("No Memory");
-            return (0);
-        }
-        readnode();
-        if (head == NULL)
-        {
-            head = last = newnode;
-            return (0);
-        }
-        newnode->flink = head;
-        head->blink = newnode;
-        head = newnode;
-    }
-    
-    void insertmiddle()
-    {
-        getnode();
-        if (newnode == NULL)
-        {
-            printf("No memory\n");
-            return;
-        }
-        readnode();
-        if (head == NULL)
-        {
-            head = last = newnode;
-        }
-        else
-        {
-            int x;
-            printf("Enter after which element, you need to add : ");
-            scanf("%d", &x);
-            temp = head;
-            while (temp != NULL)
-            {
-                if (temp->data == x)
-                {
-                    next = temp->flink;
-                    newnode->flink = next;
-                    newnode->blink = temp;
-                    temp->flink = newnode;
-                    next->blink = newnode;
-                    break;
-                }
-                temp = temp->flink;
-            }
-        }
-    }
-    
-    void transverse()
-    {
-        if (head == NULL)
-        {
-            printf("Linked List is not yet created\n");
-        }
-        else
-        {
-            temp = head;
-            while (temp != NULL)
-            {
-                printf("Current Address : %u Forward Address : %u Data : %d Backward Address : %u\n", temp, temp->flink, temp->data, temp->blink);
-                temp = temp->flink;
-            }
-        }
-    }
-    
-    int main()
-    {
-        printf("Creating Double Linked List : \n");
-        create();    
-        printf("Insert First :\n");
-        insertfirst();
-        printf("Insert Last :\n");
-        insertlast();
-        printf("Insert Middle :\n");
-        insertmiddle();
-        printf("Traversing DLL : \n");
-        transverse();
-    }`
+    //Moving data between specified address
+    ORG 000H 
+MOV 55H, #0AAH ; move AAH to address location 55h 
+MOV A, 55H ; move address location 55h to A 
+MOV 33H, A ; move value in A to address location 33h 
+MOV R0, 22H ; move address location 22H to R0 
+MOV 44H, R0 ; move R0 to address location 44H 
+END 
+`
   }, 
   {
     id : 3,
     code : `
-    //CSLL
-    #include <stdio.h>
-    #include <stdlib.h>
-    
-    struct node
-    {
-        int data;
-        struct node *link;
-    } *head = NULL, *newnode, *last, *delnode, *prev, *temp;
-    
-    void getnode()
-    {
-        newnode = (struct node *)malloc(sizeof(struct node));
-    }
-    
-    void readnode()
-    {
-        int data;
-        printf("Enter the data : ");
-        scanf("%d", &data);
-        newnode->data = data;
-        newnode->link = newnode;
-    }
-    
-    void create()
-    {
-        int c;
-        if (head != NULL)
-        {
-            printf("Node is already created\n");
-            return;
-        }
-        do
-        {
-            getnode();
-            readnode();
-            if (head == NULL)
-            {
-                head = last = newnode;
-            }
-            else {
-                last->link = newnode;
-                last = newnode;
-                last->link= head;
-            }   
-            printf("Enter 1 to add new node : ");
-            scanf("%d",&c);
-        } while (c == 1);
-        return;
-    }`
+    //Addition
+    ORG 000H 
+MOV A, #97H ; move data 97H to A 
+ADD A, #76H ; ADD value in A with data 76H 
+MOV 55H, A ; move A value to address location 55H 
+END 
+`
   }, 
   {
     id : 4,
     code  : `
-    //Binary Tree
-    #include <stdio.h>
-    #define MAX  100
-    struct node* queue[MAX];
-    int front =-1,rear = -1;
-    
-    void enqueue(struct node* ptr){
-        if (rear == MAX -1){
-            printf("Overflow");
-        } else {
-            if ((front == -1) && (rear == -1)){
-                front =0;
-                rear = 0;
-            } else {
-                rear = rear +1;
-            }
-            queue[rear] = ptr;
-        }
-    }
-    
-    struct node* dequeue(){
-        if (front == -1){
-            printf("Underflow");
-        } else {
-            struct node *n = queue[front];
-            
-            if (front == rear){
-                front == -1;
-                rear = -1;
-            } else {
-                front = front+1;
-            }
-            return n;
-        }
-    }
-    
-    struct node {
-        int data;
-        struct node *left,*right;
-    };
-    
-    struct node *create() {
-        int x;
-        struct node *newnode;
-        newnode = (struct node*) malloc(sizeof(struct node));
-        printf("Enter data (-1 for no node) :");
-        scanf("%d",&x);
-        if (x==-1){
-            return 0;
-        }
-        newnode->data = x;
-        printf("Enter the left child of %d\n",x);
-        newnode->left = create();
-        printf("Enter the right child of %d\n",x);
-        newnode->right=create();
-        return newnode;
-    }
-    
-    void preorder(struct node *root){ 
-        //Root Left Right
-        if (root == NULL){
-            return;
-        }
-        printf("%d\n",root->data);
-        preorder(root->left);
-        preorder(root->right);
-    }
-    
-    void inorder(struct node *root){
-        //Left Root Right
-        if (root == NULL){
-            return;
-        }
-        inorder(root->left);
-        printf("%d\n",root->data);
-        inorder(root->right);
-    }
-    
-    void postorder(struct node *root){
-        //Left Right Node
-        if (root == NULL){
-            return ;
-        }
-        postorder(root->left);
-        postorder(root->right);
-        printf("%d\n",root->data);
-    }
-    
-    void levelorder(struct node* root){
-        if (root == 0){
-            return ;
-        }
-        enqueue(root);
-        for(;;){
-            root =dequeue();
-            if (root){
-                printf("%d\n",root->data);
-                if(root->left){
-                    enqueue(root->left);
-                }
-                if(root->right){
-                    enqueue(root->right);
-                }
-            } else{
-                break;
-            }
-        }
-    }
-    
-    int maxDepth (struct node *root){
-        if (root == NULL){
-            return 0;
-        } else {
-            int leftDepth = maxDepth(root->left);
-            int rightDepth = maxDepth(root->right);
-            if (leftDepth>rightDepth){
-                return leftDepth+1;
-            } else {
-                return rightDepth+1;
-            }
-        }
-    }
-    
-    int main() {
-        struct node *root;
-        root = create();
-        printf("Preorder Traversal\n");
-        preorder(root);
-        printf("Inorder Traversal\n");
-        inorder(root);
-        printf("Postorder Traversal\n");
-        postorder(root);
-        printf("Inorder Traversal\n");
-        levelorder(root);
-        printf("Max Depth : %d",maxDepth(root));
-        return 0;
-    }`
+    //Subtraction
+    ORG 000H 
+MOV A, #62H ; move data 62H to A 
+SUBB A, #96H ; subtract with borrow value in A with data 96H 
+MOV R6, A ; move A value to register location R6 
+MOV A, #27H ; move data 27H to A 
+SUBB A, #12H ; subtract with borrow value in A with data 12H 
+MOV R7, A ; move A value to register location R7 
+END 
+`
   },
   {
     id : 5,
     code : `
-    Binary Search Tree
-    #include <stdio.h>
+    //Multiplication
+    ORG 000H 
+MOV A, #33H ; move data 62H to A 
+MOV B,#34H ; move data 34H to B 
+MUL AB ; multiply value in register A with value in register B 
+MOV 35H, B ; move value in register B to address location 35H 
+MOV 36H, A ; move value in register A to address location 36H 
+END 
 
-    struct node {
-        int data;
-        struct node *left,*right;
-    };
-    
-    struct node* getnewnode(int data){
-        struct node* newnode = (struct node *)malloc(sizeof(struct node));
-        newnode->data = data;
-        newnode->left = newnode->right = NULL;
-        return newnode;
-    }
-    
-    void postorder(struct node *root){
-        //Left Right Node
-        if (root == NULL){
-            return ;
-        }
-        postorder(root->left);
-        postorder(root->right);
-        printf("%d\n",root->data);
-    }
-    
-    struct node* Insert(struct node *root, int data){
-        if (root == NULL){
-            root = getnewnode(data);
-        } else if (data<= root->data){
-            root->left = Insert(root->left,data);
-        } else {
-            root ->right = Insert(root->right,data);
-        } 
-        return root;
-    }
-    
-    struct node* find(struct node* root, int x){
-        if (root == NULL){
-            printf("Element Not Found\n");
-            return NULL;
-        } else if (root->data == x) {
-            return root;
-        } else if (root->data > x){
-            return find(root->left,x);
-        } else {
-            return find(root->right,x);
-        }
-    }
-    
-    int main() {
-       struct node *root =NULL;
-       root = Insert(root,15);
-       root = Insert(root,12);
-       root = Insert(root,24);
-       root = Insert(root,10);
-       root = Insert(root,30);
-       struct node *p = find(root,9);
-       printf("Address %u Data : %d",p,p->data);
-       return 0;
-    }
-    
     `
+  },
+  {
+    id : 6,
+    code : `ORG 0000H
+	MOV DPTR,#8000H
+	MOVX A, @DPTR
+	MOV R0,A
+	INC DPTR
+	MOVX A,@DPTR
+	CLR C
+	SUBB A,R0
+	JZ EQUAL
+	JNC SMALL
+	SETB 7FH
+	SJMP END1
+
+SMALL: SETB 78H
+	SJMP END1
+
+EQUAL: CLR 78H
+	CLR 7FH
+	SJMP END1
+
+END1: NOP
+	END
+`
+  },
+  {
+    id :7,
+    code : `
+    //Half Adder
+    ORG 0000H
+	CLR P2.0
+	CLR P2.1
+	SETB P0.0
+	SETB P0.1
+	MOV C, P0.0
+	ANL C, P0.1
+	MOV P2.0, C
+	MOV C, P0.0
+	JC INPUT1
+	MOV A,#00H
+BACK1: MOV C,P0.1
+	JC INPUT2
+	MOV R0,#00H
+BACK2: XRL A,R0
+	MOV C,ACC.0
+	MOV P2.1,C
+	SJMP END1
+INPUT1: MOV A, #01H
+	SJMP BACK1
+INPUT2: MOV R0,#01H
+	SJMP BACK2
+END1: NOP
+	END
+`
+  },
+  {
+    id :8,
+    code : `
+    //Timer
+    ORG 0000H
+    MOV TMOD,#01H
+    BACK: MOV TLO,#O1H
+    MOV TH0,#0FFH
+    SETB TR0
+    AGAIN: JNB TF0,AGAIN
+    CLR TR0
+    CPL P2.7
+    CLR TF0
+    SJMP BACK
+    END
+    `
+  },
+  {
+    id : 7,
+    code : `
+    //Toggle
+    ORG 0000H
+	MOV TMOD,#10H
+	REPEAT:MOV R0,#21
+	CPL P1.7
+	BACK: MOV TL1, #00H
+	MOV TH1,#00H
+	SETB TR1
+	AGAIN: JNB TF1,AGAIN
+	CLR TR1
+	CLR TF1
+	DJNZ R0,BACK
+	SJMP REPEAT
+`
+  },
+  {
+    id : 8,
+    code : `
+    //Serial Inpt
+    MOV TMOD,#20H 
+MOV TH1,#0FDH 
+SETB TR1 
+AGAIN: MOV SCON,#40H
+MOV A,#'V' 
+ACALL SEND 
+MOV A,#'I' 
+ACALL SEND
+MOV A,#'T' '
+ACALL SEND 
+SJMP AGAIN
+SEND: MOV SBUF,A 
+HERE: JNB TI,HERE 
+CLR TI 
+RET
+END
+`
+  },
+  {
+    id : 9,
+    code :`
+    //Serail input
+    MOV TMOD,#20H ;timer1,mode 2(auto reload)
+    MOV TH1,#0FAH ;4800 baud rate
+    MOV SCON,#50H ;8-bit, 1 stop, REN enabled
+    SETB TR1 ;start timer 1
+    HERE: JNB RI,HERE ;wait for char to come in
+    MOV A,SBUF ;saving incoming byte in A
+    MOV P1,A ;send to port 1
+    CLR RI ;getready to receive next ;byte
+    SJMP HERE ;keep getting data
+    `
+  },
+  {
+    id:10,
+    code : `
+    //LCD without DPTR
+    ORG 0000H
+    MOV A,#38H
+    ACALL COMNWRT
+    
+    ACALL DELAY
+    MOV A,#0EH
+    ACALL COMNWRT
+    ACALL DELAY
+    MOV A,#01
+    ACALL COMNWRT
+    ACALL DELAY
+    MOV A, #06H
+    ACALL COMNWRT
+    ACALL DELAY
+    MOV A,#84H
+    ACALL COMNWRT
+    ACALL DELAY
+    MOV A, #’V’
+    ACALL DATAWRT
+    ACALL DELAY
+    MOV A, #’I’
+    ACALL DATAWRT
+    ACALL DELAY
+    MOV A, #’T’
+    ACALL DATAWRT
+    
+    AGAIN: SJMP AGAIN
+    COMNWRT: MOV P2,A
+    CLR P3.7
+    
+    CLR P3.6
+    SETB P3.5
+    ACALL DELAY
+    CLR P3.5
+    RET
+    
+    DATAWRT: MOV P2,A
+    SETB P3.7
+    CLR P3.6
+    SETB P3.5
+    ACALL DELAY
+    CLR P3.5
+    RET
+    
+    DELAY:
+    MOV R3,#50
+    
+    HERE2:
+    MOV R4,#255
+    
+    HERE:
+    DJNZ R4, HERE
+    DJNZ R3, HERE2
+    RET
+    END
+    `
+  },
+  {
+    id :11,
+    code : `
+    //LCD with DPTR
+    ORG 0000H
+    MOV DPTR, #MYCOM
+    C1: CLR A
+    MOVC A,@A+DPTR
+    ACALL COMNWRT
+    ACALL DELAY
+    INC DPTR
+    JZ SEND_DAT
+    SJMP C1
+    SEND_DAT:
+    MOV DPTR, #MYDATA
+    D1: CLR A
+    MOVC A,@A+DPTR
+    ACALL DATAWRT
+    ACALL DELAY
+    INC DPTR
+    JZ AGAIN
+    SJMP D1
+    AGAIN: SJMP AGAIN
+    COMNWRT: ; send command to LCD
+    MOV P2, A ; copy reg A to P2
+    CLR P3.7 ; RS=0 for command
+    CLR P3.6 ; R/W=0 for write
+    SETB P3.5 ; E=1 for high pulse
+    ACALL DELAY ; give LCD some time
+    
+    CLR P3.5 ; E=0 for H-to-L pulse
+    RET
+    DATAWRT: ; write data to LCD
+    MOV P2, A ; copy reg A to port 1
+    SETB P3.7 ; RS=1 for data
+    CLR P3.6 ; R/W=0 for write
+    SETB P3.5 ; E=1 for high pulse
+    ACALL DELAY ; give LCD some time
+    CLR P3.5 ; E=0 for H-to-L pulse
+    RET
+    DELAY: MOV R3, #250 ; 50 or higher for fast CPUs
+    HERE2: MOV R4, #255 ; R4 = 255
+    HERE: DJNZ R4, HERE ; stay until R4 becomes 0
+    DJNZ R3, HERE2
+    RET
+    ORG 300H
+    MYCOM: DB 38H, 0EH, 01, 06, 84H, 0 ; commands and null
+    MYDATA: DB ‘VIT UNIVERSITY’,0
+    END
+    `
+  },
+  {
+    id : 12,
+    code : `
+    //LED
+    ORG 0000H
+	MOV P1,#00H
+	SETB P1.0
+	SETB P1.1
+	CLR P1.0
+	CLR P1.1
+	END
+`
   }
 ]
 
